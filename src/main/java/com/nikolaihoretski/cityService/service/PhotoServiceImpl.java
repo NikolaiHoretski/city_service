@@ -30,14 +30,15 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public void saveAll(List<PhotoDto> photos) {
 
-        List<PhotoEntity> photoList = new ArrayList<>();
-        for (PhotoDto dto : photos) {
-            PhotoEntity entity = new PhotoEntity();
-            entity.setPhoto_id(dto.getPhoto_id());
-            entity.setName(dto.getName());
-            entity.setPhoto(dto.getPhoto());
-            photoList.add(entity);
-        }
+        List<PhotoEntity> photoList = photos.stream()
+                .map(dto -> {
+                    PhotoEntity entity = new PhotoEntity();
+                    entity.setPhoto_id(dto.getPhoto_id());
+                    entity.setName(dto.getName());
+                    entity.setPhoto(dto.getPhoto());
+                    return entity;
+                })
+                .toList();
 
         photoRepository.saveAll(photoList);
     }
@@ -45,15 +46,10 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public List<PhotoDto> getAllPhoto() {
 
-        List<PhotoEntity> photoList = photoRepository.findAll();
+        List<PhotoEntity> entities = photoRepository.findAll();
 
-        List<PhotoDto> photoDtoList = new ArrayList<>();
-
-        for (PhotoEntity entity : photoList) {
-            photoDtoList.add(PhotoMapper.toDto(entity));
-        }
-
-
-        return photoDtoList;
+        return entities.stream()
+                .map(PhotoMapper::toDto)
+                .toList();
     }
 }
