@@ -26,7 +26,7 @@ public class Initialization implements CommandLineRunner {
 
         if (photoService.hasAnyUsers()) return;
 
-        String path = "/home/ubuntu/java/cityService/cities.csv";
+        String path = "D:\\java\\city_service\\cities.csv";
 
         File file = new File(path);
         if(!file.exists()) {
