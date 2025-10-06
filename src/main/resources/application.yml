@@ -23,6 +23,26 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: true
 
+  devtools:
+    restart:
+      enabled: true
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
 server:
   address: 0.0.0.0
   port: 8080
