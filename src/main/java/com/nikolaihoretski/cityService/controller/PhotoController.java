@@ -1,11 +1,11 @@
 package com.nikolaihoretski.cityService.controller;
 
 import com.nikolaihoretski.cityService.dto.PhotoDto;
+import com.nikolaihoretski.cityService.dto.PhotoIDDto;
+import com.nikolaihoretski.cityService.model.PhotoEntity;
 import com.nikolaihoretski.cityService.service.PhotoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,8 +21,23 @@ public class PhotoController {
         return photoService.hasAnyUsers();
     }
 
-    @GetMapping("/getAllPhoto")
+    @GetMapping("/getallphoto")
     public List<PhotoDto> getAll() {
         return photoService.getAllPhoto();
+    }
+
+    @GetMapping("/findall/{name}")
+    public List<PhotoDto> getPhotosByName(@PathVariable String name) {
+        return photoService.findAllByName(name);
+    }
+
+    @GetMapping("/find/{id}")
+    public List<PhotoIDDto> getPhotoById(@PathVariable long id) {
+        return photoService.findById(id);
+    }
+
+    @PostMapping("/savephoto")
+    public void savePhoto(@RequestBody PhotoDto photoDto) {
+        photoService.save(photoDto);
     }
 }

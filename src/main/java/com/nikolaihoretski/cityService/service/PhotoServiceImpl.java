@@ -1,6 +1,7 @@
 package com.nikolaihoretski.cityService.service;
 
 import com.nikolaihoretski.cityService.dto.PhotoDto;
+import com.nikolaihoretski.cityService.dto.PhotoIDDto;
 import com.nikolaihoretski.cityService.mapper.PhotoMapper;
 import com.nikolaihoretski.cityService.model.PhotoEntity;
 import com.nikolaihoretski.cityService.repo.PhotoRepository;
@@ -9,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,5 +51,28 @@ public class PhotoServiceImpl implements PhotoService {
         return entities.stream()
                 .map(PhotoMapper::toDto)
                 .toList();
+    }
+
+    @Override
+    public List<PhotoDto> findAllByName(String name) {
+        List<PhotoEntity> photos = photoRepository.findByName(name);
+        return photos.stream()
+                .map(PhotoMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    public List<PhotoIDDto> findById(long id) {
+        List<PhotoEntity> photoEntities = photoRepository.findById(id);
+        return photoEntities.stream()
+                .map(PhotoMapper::toIDDto)
+                .toList();
+    }
+
+    @Override
+    public void save(PhotoDto photos) {
+        PhotoEntity entity = PhotoMapper.toEntity(photos);
+        photoRepository.save(entity);
+        logger.info("Photo save: {}", entity);
     }
 }

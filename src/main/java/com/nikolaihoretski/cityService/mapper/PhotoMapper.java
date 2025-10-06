@@ -1,6 +1,7 @@
 package com.nikolaihoretski.cityService.mapper;
 
 import com.nikolaihoretski.cityService.dto.PhotoDto;
+import com.nikolaihoretski.cityService.dto.PhotoIDDto;
 import com.nikolaihoretski.cityService.model.PhotoEntity;
 
 public class PhotoMapper {
@@ -21,5 +22,13 @@ public class PhotoMapper {
         entity.setPhoto(dto.getPhoto());
 
         return entity;
+    }
+
+    public static PhotoIDDto toIDDto(PhotoEntity photo) {
+        PhotoIDDto dto = new PhotoIDDto();
+        dto.setId(photo.getId());
+        dto.setName(photo.getName());
+        dto.setPhoto(photo.getPhoto());
+        return dto;
     }
 }

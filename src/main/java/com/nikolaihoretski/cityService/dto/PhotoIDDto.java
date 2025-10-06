@@ -5,19 +5,19 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class PhotoDto {
+public class PhotoIDDto {
 
-    private long photo_id;
+    private long id;
     private String name;
     private String photo;
 
-    public PhotoDto() {
-    }
-
-    public PhotoDto(long photo_id, String name, String photo) {
-        this.photo_id = photo_id;
+    public PhotoIDDto(long id, String name, String photo) {
+        this.id = id;
         this.name = name;
         this.photo = photo;
+    }
+
+    public PhotoIDDto() {
     }
 
 }
